@@ -51,10 +51,10 @@
  */
 
 uint8_t vl53l8cx_calibrate_xtalk(
-		VL53L8CX_Configuration		*p_dev,
-		uint16_t			reflectance_percent,
-		uint8_t				nb_samples,
-		uint16_t			distance_mm);
+	VL53L8CX_Configuration* p_dev,
+	uint16_t reflectance_percent,
+	uint8_t nb_samples,
+	uint16_t distance_mm);
 
 /**
  * @brief This function gets the Xtalk buffer. The buffer is available after
@@ -66,8 +66,8 @@ uint8_t vl53l8cx_calibrate_xtalk(
  */
 
 uint8_t vl53l8cx_get_caldata_xtalk(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_xtalk_data);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_xtalk_data);
 
 /**
  * @brief This function sets the Xtalk buffer. This function can be used to
@@ -79,8 +79,8 @@ uint8_t vl53l8cx_get_caldata_xtalk(
  */
 
 uint8_t vl53l8cx_set_caldata_xtalk(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_xtalk_data);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_xtalk_data);
 
 /**
  * @brief This function gets the Xtalk margin. This margin is used to increase
@@ -92,8 +92,8 @@ uint8_t vl53l8cx_set_caldata_xtalk(
  */
 
 uint8_t vl53l8cx_get_xtalk_margin(
-		VL53L8CX_Configuration		*p_dev,
-		uint32_t			*p_xtalk_margin);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t* p_xtalk_margin);
 
 /**
  * @brief This function sets the Xtalk margin. This margin is used to increase
@@ -107,8 +107,8 @@ uint8_t vl53l8cx_get_xtalk_margin(
  */
 
 uint8_t vl53l8cx_set_xtalk_margin(
-		VL53L8CX_Configuration		*p_dev,
-		uint32_t			xtalk_margin);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t xtalk_margin);
 
 /**
  * @brief Command used to get Xtalk calibration data

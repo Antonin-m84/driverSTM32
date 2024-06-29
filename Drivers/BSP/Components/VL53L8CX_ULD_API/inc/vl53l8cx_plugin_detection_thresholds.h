@@ -81,22 +81,22 @@
  * thresholds (defined by macro VL53L8CX_NB_THRESHOLDS).
  */
 
-typedef struct {
-
+typedef struct
+{
 	/* Low threshold */
-	int32_t 	param_low_thresh;
+	int32_t param_low_thresh;
 	/* High threshold */
-	int32_t 	param_high_thresh;
+	int32_t param_high_thresh;
 	/* Measurement to catch (VL53L8CX_MEDIAN_RANGE_MM,...)*/
-	uint8_t 	measurement;
+	uint8_t measurement;
 	/* Windows type (VL53L8CX_IN_WINDOW, VL53L8CX_OUT_WINDOW, ...) */
-	uint8_t 	type;
+	uint8_t type;
 	/* Zone id. Please read VL53L5 user manual to find the zone id.Set macro
 	 * VL53L8CX_LAST_THRESHOLD to indicates the end of checkers */
-	uint8_t 	zone_num;
+	uint8_t zone_num;
 	/* Mathematics operation (AND/OR). The first threshold is always OR.*/
-	uint8_t		mathematic_operation;
-}VL53L8CX_DetectionThresholds;
+	uint8_t mathematic_operation;
+} VL53L8CX_DetectionThresholds;
 
 /**
  * @brief This function allows indicating if the detection thresholds are
@@ -107,8 +107,8 @@ typedef struct {
  */
 
 uint8_t vl53l8cx_get_detection_thresholds_enable(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_enabled);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_enabled);
 
 /**
  * @brief This function allows enable the detection thresholds.
@@ -118,8 +118,8 @@ uint8_t vl53l8cx_get_detection_thresholds_enable(
  */
 
 uint8_t vl53l8cx_set_detection_thresholds_enable(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				enabled);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t enabled);
 
 /**
  * @brief This function allows getting the detection thresholds.
@@ -129,8 +129,8 @@ uint8_t vl53l8cx_set_detection_thresholds_enable(
  */
 
 uint8_t vl53l8cx_get_detection_thresholds(
-		VL53L8CX_Configuration		*p_dev,
-		VL53L8CX_DetectionThresholds	*p_thresholds);
+	VL53L8CX_Configuration* p_dev,
+	VL53L8CX_DetectionThresholds* p_thresholds);
 
 /**
  * @brief This function allows programming the detection thresholds.
@@ -140,8 +140,8 @@ uint8_t vl53l8cx_get_detection_thresholds(
  */
 
 uint8_t vl53l8cx_set_detection_thresholds(
-		VL53L8CX_Configuration		*p_dev,
-		VL53L8CX_DetectionThresholds	*p_thresholds);
+	VL53L8CX_Configuration* p_dev,
+	VL53L8CX_DetectionThresholds* p_thresholds);
 
 /**
  * @brief This function is used to enable or disable the auto-stop feature.
@@ -160,8 +160,8 @@ uint8_t vl53l8cx_set_detection_thresholds(
  */
 
 uint8_t vl53l8cx_get_detection_thresholds_auto_stop(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_auto_stop);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_auto_stop);
 
 /**
  * @brief This function is used to enable or disable the auto-stop feature.
@@ -180,7 +180,7 @@ uint8_t vl53l8cx_get_detection_thresholds_auto_stop(
  */
 
 uint8_t vl53l8cx_set_detection_thresholds_auto_stop(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				auto_stop);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t auto_stop);
 
 #endif /* VL53L8CX_PLUGIN_DETECTION_THRESHOLDS_H_ */

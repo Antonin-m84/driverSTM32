@@ -18,7 +18,6 @@
 #endif
 
 
-
 #include "platform.h"
 
 /**
@@ -272,23 +271,23 @@
 typedef struct
 {
 	/* Platform, filled by customer into the 'platform.h' file */
-	VL53L8CX_Platform	platform;
+	VL53L8CX_Platform platform;
 	/* Results streamcount, value auto-incremented at each range */
-	uint8_t		        streamcount;
+	uint8_t streamcount;
 	/* Size of data read though I2C */
-	uint32_t	        data_read_size;
+	uint32_t data_read_size;
 	/* Address of default configuration buffer */
-	uint8_t		        *default_configuration;
+	uint8_t* default_configuration;
 	/* Address of default Xtalk buffer */
-	uint8_t		        *default_xtalk;
+	uint8_t* default_xtalk;
 	/* Offset buffer */
-	uint8_t		        offset_data[VL53L8CX_OFFSET_BUFFER_SIZE];
+	uint8_t offset_data[VL53L8CX_OFFSET_BUFFER_SIZE];
 	/* Xtalk buffer */
-	uint8_t		        xtalk_data[VL53L8CX_XTALK_BUFFER_SIZE];
+	uint8_t xtalk_data[VL53L8CX_XTALK_BUFFER_SIZE];
 	/* Temporary buffer used for internal driver processing */
-	uint8_t		        temp_buffer[VL53L8CX_TEMPORARY_BUFFER_SIZE];
+	uint8_t temp_buffer[VL53L8CX_TEMPORARY_BUFFER_SIZE];
 	/* Auto-stop flag for stopping the sensor */
-	uint8_t				is_auto_stop_enabled;
+	uint8_t is_auto_stop_enabled;
 } VL53L8CX_Configuration;
 
 
@@ -326,31 +325,31 @@ typedef struct
 	/* Signal returned to the sensor in kcps/spads */
 #ifndef VL53L8CX_DISABLE_SIGNAL_PER_SPAD
 	uint32_t signal_per_spad[(VL53L8CX_RESOLUTION_8X8
-					*VL53L8CX_NB_TARGET_PER_ZONE)];
+		* VL53L8CX_NB_TARGET_PER_ZONE)];
 #endif
 
 	/* Sigma of the current distance in mm */
 #ifndef VL53L8CX_DISABLE_RANGE_SIGMA_MM
 	uint16_t range_sigma_mm[(VL53L8CX_RESOLUTION_8X8
-					*VL53L8CX_NB_TARGET_PER_ZONE)];
+		* VL53L8CX_NB_TARGET_PER_ZONE)];
 #endif
 
 	/* Measured distance in mm */
 #ifndef VL53L8CX_DISABLE_DISTANCE_MM
 	int16_t distance_mm[(VL53L8CX_RESOLUTION_8X8
-					*VL53L8CX_NB_TARGET_PER_ZONE)];
+		* VL53L8CX_NB_TARGET_PER_ZONE)];
 #endif
 
 	/* Estimated reflectance in percent */
 #ifndef VL53L8CX_DISABLE_REFLECTANCE_PERCENT
 	uint8_t reflectance[(VL53L8CX_RESOLUTION_8X8
-					*VL53L8CX_NB_TARGET_PER_ZONE)];
+		* VL53L8CX_NB_TARGET_PER_ZONE)];
 #endif
 
 	/* Status indicating the measurement validity (5 & 9 means ranging OK)*/
 #ifndef VL53L8CX_DISABLE_TARGET_STATUS
 	uint8_t target_status[(VL53L8CX_RESOLUTION_8X8
-					*VL53L8CX_NB_TARGET_PER_ZONE)];
+		* VL53L8CX_NB_TARGET_PER_ZONE)];
 #endif
 
 	/* Motion detector results */
@@ -359,20 +358,22 @@ typedef struct
 	{
 		uint32_t global_indicator_1;
 		uint32_t global_indicator_2;
-		uint8_t	 status;
-		uint8_t	 nb_of_detected_aggregates;
-		uint8_t	 nb_of_aggregates;
-		uint8_t	 spare;
+		uint8_t status;
+		uint8_t nb_of_detected_aggregates;
+		uint8_t nb_of_aggregates;
+		uint8_t spare;
 		uint32_t motion[32];
 	} motion_indicator;
 #endif
-
 } VL53L8CX_ResultsData;
 
 
-union Block_header {
+union Block_header
+{
 	uint32_t bytes;
-	struct {
+
+	struct
+	{
 		uint32_t type : 4;
 		uint32_t size : 12;
 		uint32_t idx : 16;
@@ -380,8 +381,8 @@ union Block_header {
 };
 
 uint8_t vl53l8cx_is_alive(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_is_alive);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_is_alive);
 
 /**
  * @brief Mandatory function used to initialize the sensor. This function must
@@ -392,7 +393,7 @@ uint8_t vl53l8cx_is_alive(
  */
 
 uint8_t vl53l8cx_init(
-		VL53L8CX_Configuration		*p_dev);
+	VL53L8CX_Configuration* p_dev);
 
 /**
  * @brief This function is used to change the I2C address of the sensor. If
@@ -404,8 +405,8 @@ uint8_t vl53l8cx_init(
  */
 
 uint8_t vl53l8cx_set_i2c_address(
-		VL53L8CX_Configuration		*p_dev,
-		uint16_t			i2c_address);
+	VL53L8CX_Configuration* p_dev,
+	uint16_t i2c_address);
 
 /**
  * @brief This function is used to get the current sensor power mode.
@@ -418,8 +419,8 @@ uint8_t vl53l8cx_set_i2c_address(
  */
 
 uint8_t vl53l8cx_get_power_mode(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_power_mode);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_power_mode);
 
 /**
  * @brief This function is used to set the sensor in Low Power mode, for
@@ -435,8 +436,8 @@ uint8_t vl53l8cx_get_power_mode(
  */
 
 uint8_t vl53l8cx_set_power_mode(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				power_mode);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t power_mode);
 
 /**
  * @brief This function starts a ranging session. When the sensor streams, host
@@ -446,7 +447,7 @@ uint8_t vl53l8cx_set_power_mode(
  */
 
 uint8_t vl53l8cx_start_ranging(
-		VL53L8CX_Configuration		*p_dev);
+	VL53L8CX_Configuration* p_dev);
 
 /**
  * @brief This function stops the ranging session. It must be used when the
@@ -456,7 +457,7 @@ uint8_t vl53l8cx_start_ranging(
  */
 
 uint8_t vl53l8cx_stop_ranging(
-		VL53L8CX_Configuration		*p_dev);
+	VL53L8CX_Configuration* p_dev);
 
 /**
  * @brief This function checks if a new data is ready by polling I2C. If a new
@@ -468,8 +469,8 @@ uint8_t vl53l8cx_stop_ranging(
  */
 
 uint8_t vl53l8cx_check_data_ready(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_isReady);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_isReady);
 
 /**
  * @brief This function gets the ranging data, using the selected output and the
@@ -480,8 +481,8 @@ uint8_t vl53l8cx_check_data_ready(
  */
 
 uint8_t vl53l8cx_get_ranging_data(
-		VL53L8CX_Configuration		*p_dev,
-		VL53L8CX_ResultsData		*p_results);
+	VL53L8CX_Configuration* p_dev,
+	VL53L8CX_ResultsData* p_results);
 
 /**
  * @brief This function gets the current resolution (4x4 or 8x8).
@@ -492,8 +493,8 @@ uint8_t vl53l8cx_get_ranging_data(
  */
 
 uint8_t vl53l8cx_get_resolution(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_resolution);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_resolution);
 
 /**
  * @brief This function sets a new resolution (4x4 or 8x8).
@@ -504,8 +505,8 @@ uint8_t vl53l8cx_get_resolution(
  */
 
 uint8_t vl53l8cx_set_resolution(
-		VL53L8CX_Configuration		 *p_dev,
-		uint8_t                         resolution);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t resolution);
 
 /**
  * @brief This function gets the current ranging frequency in Hz. Ranging
@@ -516,8 +517,8 @@ uint8_t vl53l8cx_set_resolution(
  */
 
 uint8_t vl53l8cx_get_ranging_frequency_hz(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_frequency_hz);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_frequency_hz);
 
 /**
  * @brief This function sets a new ranging frequency in Hz. Ranging frequency
@@ -532,8 +533,8 @@ uint8_t vl53l8cx_get_ranging_frequency_hz(
  */
 
 uint8_t vl53l8cx_set_ranging_frequency_hz(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				frequency_hz);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t frequency_hz);
 
 /**
  * @brief This function gets the current integration time in ms.
@@ -543,8 +544,8 @@ uint8_t vl53l8cx_set_ranging_frequency_hz(
  */
 
 uint8_t vl53l8cx_get_integration_time_ms(
-		VL53L8CX_Configuration		*p_dev,
-		uint32_t			*p_time_ms);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t* p_time_ms);
 
 /**
  * @brief This function sets a new integration time in ms. Integration time must
@@ -558,8 +559,8 @@ uint8_t vl53l8cx_get_integration_time_ms(
  */
 
 uint8_t vl53l8cx_set_integration_time_ms(
-		VL53L8CX_Configuration		*p_dev,
-		uint32_t			integration_time_ms);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t integration_time_ms);
 
 /**
  * @brief This function gets the current sharpener in percent. Sharpener can be
@@ -570,8 +571,8 @@ uint8_t vl53l8cx_set_integration_time_ms(
  */
 
 uint8_t vl53l8cx_get_sharpener_percent(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_sharpener_percent);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_sharpener_percent);
 
 /**
  * @brief This function sets a new sharpener value in percent. Sharpener can be
@@ -583,8 +584,8 @@ uint8_t vl53l8cx_get_sharpener_percent(
  */
 
 uint8_t vl53l8cx_set_sharpener_percent(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				sharpener_percent);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t sharpener_percent);
 
 /**
  * @brief This function gets the current target order (closest or strongest).
@@ -594,8 +595,8 @@ uint8_t vl53l8cx_set_sharpener_percent(
  */
 
 uint8_t vl53l8cx_get_target_order(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_target_order);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_target_order);
 
 /**
  * @brief This function sets a new target order. Please use macros
@@ -609,8 +610,8 @@ uint8_t vl53l8cx_get_target_order(
  */
 
 uint8_t vl53l8cx_set_target_order(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				target_order);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t target_order);
 
 /**
  * @brief This function is used to get the ranging mode. Two modes are
@@ -622,8 +623,8 @@ uint8_t vl53l8cx_set_target_order(
  */
 
 uint8_t vl53l8cx_get_ranging_mode(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_ranging_mode);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_ranging_mode);
 
 /**
  * @brief This function is used to set the ranging mode. Two modes are
@@ -636,8 +637,8 @@ uint8_t vl53l8cx_get_ranging_mode(
  */
 
 uint8_t vl53l8cx_set_ranging_mode(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				ranging_mode);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t ranging_mode);
 
 /**
  * @brief This function is used to check if the synchronization pin is enabled
@@ -650,8 +651,8 @@ uint8_t vl53l8cx_set_ranging_mode(
  * @return (uint8_t) status : 0 if get sync pin OK.
  */
 uint8_t vl53l8cx_get_external_sync_pin_enable(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*p_is_sync_pin_enabled);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* p_is_sync_pin_enabled);
 
 
 /**
@@ -665,8 +666,8 @@ uint8_t vl53l8cx_get_external_sync_pin_enable(
  * @return (uint8_t) status : 0 if set sync pin OK.
  */
 uint8_t vl53l8cx_set_external_sync_pin_enable(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				enable_sync_pin);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t enable_sync_pin);
 
 /**
  * @brief This function is used to get the number of frames between 2 temperature
@@ -676,8 +677,8 @@ uint8_t vl53l8cx_set_external_sync_pin_enable(
  * compensation. Set to 0 to disable the feature (default configuration).
  */
 uint8_t vl53l8cx_get_VHV_repeat_count(
-		VL53L8CX_Configuration *p_dev,
-		uint32_t *p_repeat_count);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t* p_repeat_count);
 
 /**
  * @brief This function is used to set a periodic temperature compensation. By
@@ -689,8 +690,8 @@ uint8_t vl53l8cx_get_VHV_repeat_count(
  * compensation. Set to 0 to disable the feature (default configuration).
  */
 uint8_t vl53l8cx_set_VHV_repeat_count(
-		VL53L8CX_Configuration *p_dev,
-		uint32_t repeat_count);
+	VL53L8CX_Configuration* p_dev,
+	uint32_t repeat_count);
 
 /**
  * @brief This function can be used to read 'extra data' from DCI. Using a known
@@ -706,10 +707,10 @@ uint8_t vl53l8cx_set_VHV_repeat_count(
  */
 
 uint8_t vl53l8cx_dci_read_data(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*data,
-		uint32_t			index,
-		uint16_t			data_size);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* data,
+	uint32_t index,
+	uint16_t data_size);
 
 /**
  * @brief This function can be used to write 'extra data' to DCI. The data can
@@ -725,10 +726,10 @@ uint8_t vl53l8cx_dci_read_data(
  */
 
 uint8_t vl53l8cx_dci_write_data(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*data,
-		uint32_t			index,
-		uint16_t			data_size);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* data,
+	uint32_t index,
+	uint16_t data_size);
 
 /**
  * @brief This function can be used to replace 'extra data' in DCI. The data can
@@ -747,12 +748,12 @@ uint8_t vl53l8cx_dci_write_data(
  */
 
 uint8_t vl53l8cx_dci_replace_data(
-		VL53L8CX_Configuration		*p_dev,
-		uint8_t				*data,
-		uint32_t			index,
-		uint16_t			data_size,
-		uint8_t				*new_data,
-		uint16_t			new_data_size,
-		uint16_t			new_data_pos);
+	VL53L8CX_Configuration* p_dev,
+	uint8_t* data,
+	uint32_t index,
+	uint16_t data_size,
+	uint8_t* new_data,
+	uint16_t new_data_size,
+	uint16_t new_data_pos);
 
 #endif //VL53L8CX_API_H_

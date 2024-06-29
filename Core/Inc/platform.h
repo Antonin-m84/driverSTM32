@@ -81,8 +81,7 @@ typedef struct
 	/* To be filled with customer's platform. At least an I2C address/descriptor
 	 * needs to be added */
 	/* Example for most standard platform : I2C address of sensor */
-    uint16_t  			address;
-
+	uint16_t address;
 } VL53L8CX_Platform;
 
 /*
@@ -128,9 +127,9 @@ typedef struct
  */
 
 uint8_t RdByte(
-		VL53L8CX_Platform *p_platform,
-		uint16_t RegisterAdress,
-		uint8_t *p_value);
+	VL53L8CX_Platform* p_platform,
+	uint16_t RegisterAdress,
+	uint8_t* p_value);
 
 /**
  * @brief Mandatory function used to write one single byte.
@@ -142,9 +141,9 @@ uint8_t RdByte(
  */
 
 uint8_t WrByte(
-		VL53L8CX_Platform *p_platform,
-		uint16_t RegisterAdress,
-		uint8_t value);
+	VL53L8CX_Platform* p_platform,
+	uint16_t RegisterAdress,
+	uint8_t value);
 
 /**
  * @brief Mandatory function used to read multiples bytes.
@@ -157,10 +156,10 @@ uint8_t WrByte(
  */
 
 uint8_t RdMulti(
-		VL53L8CX_Platform *p_platform,
-		uint16_t RegisterAdress,
-		uint8_t *p_values,
-		uint32_t size);
+	VL53L8CX_Platform* p_platform,
+	uint16_t RegisterAdress,
+	uint8_t* p_values,
+	uint32_t size);
 
 /**
  * @brief Mandatory function used to write multiples bytes.
@@ -173,10 +172,10 @@ uint8_t RdMulti(
  */
 
 uint8_t WrMulti(
-		VL53L8CX_Platform *p_platform,
-		uint16_t RegisterAdress,
-		uint8_t *p_values,
-		uint32_t size);
+	VL53L8CX_Platform* p_platform,
+	uint16_t RegisterAdress,
+	uint8_t* p_values,
+	uint32_t size);
 
 /**
  * @brief Optional function, only used to perform an hardware reset of the
@@ -189,7 +188,7 @@ uint8_t WrMulti(
  */
 
 uint8_t Reset_Sensor(
-		VL53L8CX_Platform *p_platform);
+	VL53L8CX_Platform* p_platform);
 
 /**
  * @brief Mandatory function, used to swap a buffer. The buffer size is always a
@@ -199,8 +198,8 @@ uint8_t Reset_Sensor(
  */
 
 void SwapBuffer(
-		uint8_t 		*buffer,
-		uint16_t 	 	 size);
+	uint8_t* buffer,
+	uint16_t size);
 /**
  * @brief Mandatory function, used to wait during an amount of time. It must be
  * filled as it's used into the API.
@@ -211,7 +210,7 @@ void SwapBuffer(
  */
 
 uint8_t WaitMs(
-		VL53L8CX_Platform *p_platform,
-		uint32_t TimeMs);
+	VL53L8CX_Platform* p_platform,
+	uint32_t TimeMs);
 
 #endif	// _PLATFORM_H_
