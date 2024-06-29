@@ -48,6 +48,8 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+int currentMode = 1;
+
 int status;
 volatile int IntCount;
 uint8_t p_data_ready;
@@ -441,10 +443,10 @@ void Error_Handler(void)
 {
 	/* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
-	__disable_irq();
-	while (1)
-	{
-	}
+	// __disable_irq();
+	// while (1)
+	// {
+	// }
 	/* USER CODE END Error_Handler_Debug */
 }
 
