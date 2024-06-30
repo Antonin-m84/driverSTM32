@@ -4,11 +4,11 @@ Consume data from queue and display in the grid gui
 
 import multiprocessing
 
-from appli.plotColors import get_color
+from .plotColors import get_color
 
 # Configuration
 GRID_SIZE = 8
-CELL_SIZE = 60
+CELL_SIZE = 100
 WINDOW_SIZE = GRID_SIZE * CELL_SIZE
 FPS = 60
 VALUE_RANGE = (0, 3000)
@@ -22,7 +22,7 @@ def consume_data(queue: multiprocessing.Queue):
     pygame.init()
     window = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
     pygame.display.set_caption("8x8 Grid Visualization")
-    font = pygame.font.SysFont(None, 24)
+    font = pygame.font.SysFont(None, int(CELL_SIZE / 60 * 24))
     clock = pygame.time.Clock()
 
     def draw_grid(values):
