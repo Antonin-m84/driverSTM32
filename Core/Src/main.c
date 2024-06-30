@@ -48,10 +48,13 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-int currentMode = 1;
+#define MODE_4x4 1
+#define MODE_8x8 2
+int currentMode = MODE_8x8;
 
 int status;
 volatile int IntCount;
+uint32_t integration_time_ms;
 uint8_t p_data_ready;
 VL53L8CX_Configuration Dev;
 VL53L8CX_ResultsData Results;
@@ -127,6 +130,8 @@ int main(void)
 	MX_I2C1_Init();
 	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
+	printf("-- starting in mode %d\r\n", currentMode);
+
 	Dev.platform.address = VL53L8CX_DEFAULT_I2C_ADDRESS;
 
 	Reset_Sensor(&(Dev.platform));
@@ -139,17 +144,48 @@ int main(void)
 	}
 	printf("Sensor initializing, please wait few seconds\r\n");
 	status = vl53l8cx_init(&Dev);
-	status = vl53l8cx_set_ranging_frequency_hz(&Dev, 2); // Set 2Hz ranging frequency
+
+	if (currentMode == MODE_8x8) {
+		status = vl53l8cx_set_resolution(&Dev, VL53L8CX_RESOLUTION_8X8);
+		if(status) {
+			printf("vl53l8cx_set_resolution failed, status %u\n", status);
+			return status;
+		}
+	}
+
+	// TODO: if MODE_8x8 set 15 else 60
+	status = vl53l8cx_set_ranging_frequency_hz(&Dev, 15); // 15
 	status = vl53l8cx_set_ranging_mode(&Dev, VL53L8CX_RANGING_MODE_CONTINUOUS); // Set mode continuous
+
+
+#ifdef TARGET_MODE
+	status = vl53l8cx_set_target_order(&Dev, VL53L8CX_TARGET_ORDER_CLOSEST);
+	if(status) {
+		printf("vl53l8cx_set_target_order failed, status %u\n", status);
+		return status;
+	}
+#endif
+
+	/* Get current integration time */
+	status = vl53l8cx_get_integration_time_ms(&Dev, &integration_time_ms);
+	if(status) {
+		printf("vl53l8cx_get_integration_time_ms failed, status %u\n", status);
+		return status;
+	}
+	printf("Current integration time is : %d ms\n", (int)integration_time_ms);
+
 
 	printf("Ranging starts\r\n");
 	status = vl53l8cx_start_ranging(&Dev);
+
+
+	printf("Zone;Nb targets;Ambient (Kcps/spads);Target Status;Distance (mm);\r\n");
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 
-	printf("Zone;Nb targets;Ambient (Kcps/spads);Target Status;Distance (mm);\r\n");
 
 	if (is_interrupt)
 	{
