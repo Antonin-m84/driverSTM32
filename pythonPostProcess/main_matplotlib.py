@@ -20,7 +20,7 @@ def loop():
     first_time = True
     plt.ion()
     fig, ax = plt.subplots()
-    plt.title("VL53L8CX 4X4 V1 GTX Turbo")
+    plt.title("VL53L8CX 8x8 V2")
     plt.axis('off')
 
     def refresh_plot():
@@ -81,6 +81,7 @@ def loop():
         fig.tight_layout()
 
         # Print to the console (debug)
+
         print_table(tableau)
 
 

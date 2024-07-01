@@ -11,8 +11,6 @@ GRID_SIZE = 8
 CELL_SIZE = 100
 WINDOW_SIZE = GRID_SIZE * CELL_SIZE
 FPS = 60
-VALUE_RANGE = (0, 3000)
-COLOR_RANGE = [(0, 255, 0), (0, 0, 255), (128, 0, 128)]  # Light green to blue to dark purple
 
 
 def consume_data(queue: multiprocessing.Queue):
@@ -26,14 +24,14 @@ def consume_data(queue: multiprocessing.Queue):
     clock = pygame.time.Clock()
 
     def draw_grid(values):
-        for i in range(GRID_SIZE):
-            for j in range(GRID_SIZE):
-                value = values[i * GRID_SIZE + j]
+        for y in range(GRID_SIZE):
+            for x in range(GRID_SIZE):
+                value = values[(GRID_SIZE-1-y) * GRID_SIZE + x]
                 color = get_color(value)
-                rect = pygame.Rect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 pygame.draw.rect(window, color, rect)
                 text = font.render(str(value), True, (255, 255, 255))
-                window.blit(text, (j * CELL_SIZE + CELL_SIZE / 4, i * CELL_SIZE + CELL_SIZE / 4))
+                window.blit(text, (x * CELL_SIZE + CELL_SIZE / 4, y * CELL_SIZE + CELL_SIZE / 4))
 
     def update(queue, current_values):
         try:
