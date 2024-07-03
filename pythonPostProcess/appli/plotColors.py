@@ -260,8 +260,8 @@ colors = [
     [253, 231, 37]
 ]
 
-def get_color(value, min_v=0, max_v=5000):
-    # value of 0 or 5 should be 0, where value of 4989 should be 255, and 2500 should be 127
+def get_color(value, min_v=0, max_v=4000):
+    # value of 0 or 5 should be 0, where value of 3989 should be 255, and 2500 should be 127
 
     # Ensure the value is within the provided range
     value = max(min_v, min(value, max_v))
