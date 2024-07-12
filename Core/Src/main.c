@@ -407,7 +407,7 @@ void get_data_by_interrupt(VL53L8CX_Configuration* p_dev)
 			for (int i = 0; i < resolution; i++)
 			{
 				/* Print per zone results */
-				printf('Zone : %2d, Nb targets : %2u, Ambient : %4lu Kcps/spads, ', i, Results.nb_target_detected[i],
+				printf('Zone:%2d, Nbtargets: %2u, Ambient: %4luKcps/spads, ', i, Results.nb_target_detected[i],
 				       Results.ambient_per_spad[i]);
 
 				/* Print per target results */

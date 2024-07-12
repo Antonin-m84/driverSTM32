@@ -13,7 +13,7 @@ if __name__ == "__main__":
     port = 'COM3'
     baud_rate = 460800
 
-    serial_thread = threading.Thread(target=replay_data, args=(queue, port, baud_rate))
+    serial_thread = threading.Thread(target=serial_worker, args=(queue, port, baud_rate))
     serial_thread.start()
 
     # Start producer thread

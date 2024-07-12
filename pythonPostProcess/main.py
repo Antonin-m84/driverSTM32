@@ -12,7 +12,7 @@ if __name__ == "__main__":
     port = 'COM3'
     baud_rate = 460800
 
-    serial_process = multiprocessing.Process(target=replay_data, args=(queue))
+    serial_process = multiprocessing.Process(target=serial_worker, args=(queue, port, baud_rate))
     serial_process.start()
 
     # Start producer process
