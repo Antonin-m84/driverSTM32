@@ -16,9 +16,9 @@ if __name__ == "__main__":
     serial_process.start()
 
     # Start producer process
-    # produce_process = multiprocessing.Process(target=produce_data, args=(queue,))
+    # produce_process = multiprocessing.Process(target=replay_data, args=(queue,))
     # produce_process.start()
 
     # Start GUI process
-    consume_process = multiprocessing.Process(target=consume_data, args=(queue,))
+    consume_process = multiprocessing.Process(target=consume_data, args=(queue,True, ))
     consume_process.start()
