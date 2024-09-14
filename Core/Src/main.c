@@ -145,16 +145,26 @@ int main(void)
 	printf("Sensor initializing, please wait few seconds\r\n");
 	status = vl53l8cx_init(&Dev);
 
-	if (currentMode == MODE_8x8) {
+	if (currentMode == MODE_8x8)
+	{
 		status = vl53l8cx_set_resolution(&Dev, VL53L8CX_RESOLUTION_8X8);
-		if(status) {
+		if (status)
+		{
 			printf("vl53l8cx_set_resolution failed, status %u\n", status);
 			return status;
 		}
 	}
 
 	// TODO: if MODE_8x8 set 15 else 60
-	status = vl53l8cx_set_ranging_frequency_hz(&Dev, 15); // 15
+	if (currentMode == MODE_8x8)
+	{
+		status = vl53l8cx_set_ranging_frequency_hz(&Dev, 15); // 8x8
+	}
+	else
+	{
+		status = vl53l8cx_set_ranging_frequency_hz(&Dev, 45); // 4x4
+	}
+
 	status = vl53l8cx_set_ranging_mode(&Dev, VL53L8CX_RANGING_MODE_CONTINUOUS); // Set mode continuous
 
 
@@ -168,7 +178,8 @@ int main(void)
 
 	/* Get current integration time */
 	status = vl53l8cx_get_integration_time_ms(&Dev, &integration_time_ms);
-	if(status) {
+	if (status)
+	{
 		printf("vl53l8cx_get_integration_time_ms failed, status %u\n", status);
 		return status;
 	}

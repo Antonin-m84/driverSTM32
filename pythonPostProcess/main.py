@@ -22,3 +22,4 @@ if __name__ == "__main__":
     # Start GUI process
     consume_process = multiprocessing.Process(target=consume_data, args=(queue,True, ))
     consume_process.start()
+
