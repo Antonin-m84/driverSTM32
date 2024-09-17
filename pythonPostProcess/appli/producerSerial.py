@@ -8,6 +8,7 @@ from typing import List
 
 
 def serial_worker(queue: multiprocessing.Queue, port: str, baudrate: int):
+
     """
     Worker function to read data from the serial port and push it to the queue.
     """
